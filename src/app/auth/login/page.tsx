@@ -49,7 +49,6 @@ setError("Enter your email first, then click Forgot password.");
 return;
 }
 
-```
 setError("");
 setMessage("");
 setResetLoading(true);
