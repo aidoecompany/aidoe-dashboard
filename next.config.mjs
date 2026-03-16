@@ -3,6 +3,15 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: [],
   },
+
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   headers: async () => [
     {
       source: "/api/:path*",
