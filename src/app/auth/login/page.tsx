@@ -73,13 +73,11 @@ setMessage(
   "Password reset link sent. Check your inbox and follow the instructions."
 );
 setResetLoading(false);
-```
 
 };
 
 return ( <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#f5f5f7] px-4 py-12 text-[#1d1d1f]"> <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-white/70 blur-3xl" /> <div className="pointer-events-none absolute -bottom-20 -right-20 h-72 w-72 rounded-full bg-[#dfe3ea]/70 blur-3xl" />
 
-```
   <div className="w-full max-w-md">
     <div className="rounded-3xl border border-white/60 bg-white/75 p-8 shadow-[0_18px_45px_rgba(17,24,39,0.12)] backdrop-blur-xl">
       <p className="text-xs font-medium uppercase tracking-[0.18em] text-[#6e6e73]">
