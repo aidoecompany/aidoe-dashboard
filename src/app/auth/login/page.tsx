@@ -19,28 +19,25 @@ const [error, setError] = useState("");
 const [message, setMessage] = useState("");
 
 const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
-e.preventDefault();
-setError("");
-setMessage("");
-setLoading(true);
+  e.preventDefault();
+  setError("");
+  setMessage("");
+  setLoading(true);
 
-```
-const { error: loginError } = await supabase.auth.signInWithPassword({
-  email: email.trim(),
-  password,
-});
+  const { error: loginError } = await supabase.auth.signInWithPassword({
+    email: email.trim(),
+    password,
+  });
 
-if (loginError) {
-  setError(loginError.message || "Unable to sign in. Please try again.");
+  if (loginError) {
+    setError(loginError.message || "Unable to sign in. Please try again.");
+    setLoading(false);
+    return;
+  }
+
+  router.push("/");
+  router.refresh();
   setLoading(false);
-  return;
-}
-
-router.push("/dashboard");
-router.refresh();
-setLoading(false);
-```
-
 };
 
 const handleForgotPassword = async () => {
