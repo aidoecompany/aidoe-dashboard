@@ -52,11 +52,13 @@ export function useChat(sessionId?: string) {
           : "apollo";
 
       try {
-        const res = await fetch("/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-         const { data: { user } } = await (await import("@/lib/supabaseClient")).supabase.auth.getUser();
-body: JSON.stringify({
+       const supabase = createClient();
+const { data: { user } } = await supabase.auth.getUser();
+
+const res = await fetch("/api/chat", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
   message: content.trim(),
   session_id: currentSessionId,
   history,
