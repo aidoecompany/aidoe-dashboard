@@ -4,6 +4,7 @@
 // ============================================
 
 "use client";
+import { createClient } from "@/utils/supabase/client";
 
 import { useState, useCallback } from "react";
 import { v4 as uuidv4 } from "uuid";
