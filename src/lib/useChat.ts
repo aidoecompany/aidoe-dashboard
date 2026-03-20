@@ -54,12 +54,14 @@ export function useChat(sessionId?: string) {
         const res = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            message: content.trim(),
-            session_id: currentSessionId,
-            history,
-            clinic, // ✅ sent to API
-          }),
+         const { data: { user } } = await (await import("@/lib/supabaseClient")).supabase.auth.getUser();
+body: JSON.stringify({
+  message: content.trim(),
+  session_id: currentSessionId,
+  history,
+  clinic,
+  userEmail: user?.email ?? null,
+}),
         });
 
         const data = await res.json();
