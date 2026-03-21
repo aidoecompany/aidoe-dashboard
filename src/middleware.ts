@@ -43,9 +43,24 @@ export async function middleware(request: NextRequest) {
   const isAuthPath = AUTH_PATHS.some((p) => pathname.startsWith(p));
 
   // Redirect unauthenticated users away from protected routes
-  if (isProtected && !user) {
-    return NextResponse.redirect(new URL("/login", request.url));
+  // Redirect unauthenticated users away from protected routes
+if (isProtected && !user) {
+  return NextResponse.redirect(new URL("/auth/login", request.url));
+}
+
+// Check if user has been removed
+if (user && isProtected) {
+  const { data: removedData } = await supabase
+    .from("removed_users")
+    .select("email")
+    .eq("email", user.email)
+    .single();
+  
+  if (removedData) {
+    await supabase.auth.signOut();
+    return NextResponse.redirect(new URL("/auth/login", request.url));
   }
+}
 
   // Redirect authenticated users away from auth pages
   if (isAuthPath && user) {
