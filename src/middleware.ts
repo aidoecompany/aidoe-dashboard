@@ -49,6 +49,7 @@ if (isProtected && !user) {
 }
 
 // Check if user has been removed
+// Check if user has been removed
 if (user && isProtected) {
   const { data: removedData } = await supabase
     .from("removed_users")
@@ -57,11 +58,9 @@ if (user && isProtected) {
     .single();
   
   if (removedData) {
-    await supabase.auth.signOut();
-    return NextResponse.redirect(new URL("/auth/login", request.url));
+    return NextResponse.redirect(new URL("/auth/force-logout", request.url));
   }
 }
-
   // Redirect authenticated users away from auth pages
   if (isAuthPath && user) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
