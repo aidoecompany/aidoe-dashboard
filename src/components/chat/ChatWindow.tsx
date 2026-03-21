@@ -11,6 +11,7 @@ import { MessageBubble, TypingIndicator } from "./MessageBubble";
 import { ChatInput } from "./ChatInput";
 import { Sidebar } from "./Sidebar";
 import { useChat } from "@/lib/useChat";
+import { createClient } from "@/lib/supabase/client";
 
 export function ChatWindow() {
   const { messages, isLoading, sendMessage, clearMessages } = useChat();
