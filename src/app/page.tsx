@@ -28,9 +28,11 @@ export default async function Home() {
   }
 
   const user = data.user;
-  const email = (user.email ?? "").toLowerCase();
-  const isExempt = EXEMPT_EMAILS.has(email);
+const email = (user.email ?? "").toLowerCase();
+const isExempt = EXEMPT_EMAILS.has(email);
 
+// Update last seen
+await supabase.from("user_activity").upsert({ email, last_seen: new Date().toISOString() });
 let trialExpired = false;
 if (!isExempt && user.created_at) {
   // Check if user has been extended in extended_users table
