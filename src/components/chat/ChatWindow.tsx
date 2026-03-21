@@ -22,6 +22,21 @@ export function ChatWindow() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isLoading]);
+  useEffect(() => {
+  const checkAccess = async () => {
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    const res = await fetch(`/api/check-access?email=${encodeURIComponent(user.email ?? '')}`);
+    const data = await res.json();
+    if (data.removed) {
+      await supabase.auth.signOut();
+      window.location.href = "/auth/login";
+    }
+  };
+  const interval = setInterval(checkAccess, 30000);
+  return () => clearInterval(interval);
+}, []);
 
   const handleSend = () => {
     if (!input.trim() || isLoading) return;
