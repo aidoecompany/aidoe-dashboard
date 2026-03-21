@@ -27,7 +27,7 @@ export function ChatWindow() {
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
-    const res = await fetch(`/api/check-access?email=${encodeURIComponent(user.email ?? '')}`);
+    const res = await fetch(`/api/chat/check-access?email=${encodeURIComponent(user.email ?? '')}`);
     const data = await res.json();
     if (data.removed) {
       await supabase.auth.signOut();
