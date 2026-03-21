@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { AccessGuard } from "@/components/AccessGuard";
 
 export const metadata: Metadata = {
-  title: "Recuria — Clinical AI Assistant",
+  title: "Recuria — AI Assistant",
   description:
-    "Recuria powered by Aidoe — A clinic-ready AI medical assistant platform for healthcare professionals.",
-  keywords: ["medical AI", "clinical assistant", "healthcare", "Recuria"],
+    "Recuria powered by Aidoe — A ready AI assistant platform.",
+  keywords: ["AI", "assistant", "Recuria"],
 };
 
 export default function RootLayout({
@@ -15,7 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AccessGuard />
+        {children}
+      </body>
     </html>
   );
 }
