@@ -34,17 +34,16 @@ export default async function Home() {
 let trialExpired = false;
 if (!isExempt && user.created_at) {
   // Check if user has been extended in extended_users table
-  const { data: extData } = await supabase
-    .from("extended_users")
-    .select("email")
-    .eq("email", email)
-    .single();
+  const { data: extData } = await supabase.from("extended_users").select("email").eq("email", email).single();
+const { data: removedData } = await supabase.from("removed_users").select("email").eq("email", email).single();
 
-  if (!extData) {
-    const createdAt = new Date(user.created_at);
-    const trialEnd = new Date(createdAt.getTime() + TRIAL_DAYS * 24 * 60 * 60 * 1000);
-    trialExpired = new Date() > trialEnd;
-  }
+if (removedData) {
+  trialExpired = true;
+} else if (!extData) {
+  const createdAt = new Date(user.created_at);
+  const trialEnd = new Date(createdAt.getTime() + TRIAL_DAYS * 24 * 60 * 60 * 1000);
+  trialExpired = new Date() > trialEnd;
+}
 }
 
   if (trialExpired) {
